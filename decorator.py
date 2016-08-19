@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """https://docs.python.org/2/library/functools.html#functools.wraps"""
 """https://stackoverflow.com/questions/739654/how-can-i-make-a-chain-of-function-decorators-in-python/739665#739665"""
 
@@ -5,16 +6,17 @@ from functools import wraps
 
 
 def makebold(fn):
-    @wraps(fn)
-    def wrapped():
-        return "<b>" + fn() + "</b>"
-    return wrapped
+    return getwrapped(fn, "b")
 
 
 def makeitalic(fn):
+    return getwrapped(fn, "i")
+
+
+def getwrapped(fn, tag):
     @wraps(fn)
     def wrapped():
-        return "<i>" + fn() + "</i>"
+        return "<%s>%s</%s>" % (tag, fn(), tag)
     return wrapped
 
 
